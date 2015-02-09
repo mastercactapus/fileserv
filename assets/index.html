@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Directory Listing - {{.Path}}</title>
+	<link rel="stylesheet" type="text/css" href="/?asset=main.css">
+</head>
+<body>
+<table id="contents">
+	<thead>
+		<th align="left">
+		{{if .Contents.SortByName}}
+			<a class="active" href="{{.Path}}?sort=name&reverse={{.Contents.ReverseFlip}}">Name</a>
+		{{else}}
+			<a href="{{.Path}}?sort=name">Name</a>
+		{{end}}
+		</th>
+		<th align="left">
+		{{if .Contents.SortByModified}}
+			<a class="active" href="{{.Path}}?sort=modified&reverse={{.Contents.ReverseFlip}}">Last modified</a>
+		{{else}}
+			<a href="{{.Path}}?sort=modified">Last modified</a>
+		{{end}}
+		</th>
+		<th align="left">
+		{{if .Contents.SortBySize}}
+			<a class="active" href="{{.Path}}?sort=size&reverse={{.Contents.ReverseFlip}}">Size</a>
+		{{else}}
+			<a href="{{.Path}}?sort=size">Size</a>
+		{{end}}
+		</th>
+	</thead>
+	<tbody>
+	{{if .ParentUrl}}
+		<tr>
+			<td><a href="{{.ParentUrl}}">Parent Directory</a></td>
+			<td></td>
+			<td>-</td>
+		</tr>
+	{{end}}
+	{{range .Contents.Files}}
+		<tr>
+			<td><a href="{{.Url}}">{{.Name}}</a></td>
+			<td>{{.Modified}}</td>
+			<td>{{.Size}}</td>
+		</tr>
+	{{else}}
+		<tr>
+			<td>This directory is empty</td>
+			<td></td>
+			<td></td>
+		</tr>
+	{{end}}
+	</tbody>
+</table>
+</body>
+</html>
